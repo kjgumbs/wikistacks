@@ -1,16 +1,20 @@
 const express = require('express');
 const morgan = require('morgan');
 const { db, Page, User } = require('./models');
+const wiki = require('./routes/wiki');
+//const users = require('./routes/users');
+const layout = require('./views/layout');
 const app = express();
 
 app.use(express.static('public'));
-app.use(express.urlencoded());
-
+app.use(express.urlencoded({ extended: false }));
+app.use('/wiki',wiki);
+//app.use('/users',users);
 
 app.get('/', (req,res,next) =>
 {
   try{
-    res.send("");
+    res.redirect('/wiki');
   }
   catch(error)
   {
